@@ -19,7 +19,14 @@ import java.util.Set;
 public class Usuario implements Serializable {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY,generator="usuario_geracao")
+    @TableGenerator(
+            table = "sequences",
+            name = "id_usuario",
+            pkColumnName = "sequence_name",
+            valueColumnName = "sequence_next_hi_value",
+            pkColumnValue = "id_usuario",
+            allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator="id_usuario")
     @Column(name = "id")
     private Long id;
 

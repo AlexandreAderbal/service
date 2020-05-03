@@ -2,9 +2,12 @@ package br.com.app.payload;
 
 import br.com.app.entity.Permissao;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ListaPermissao {
+public class ListaPermissao implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String titulo;
     private List<Permissao> permissoes;

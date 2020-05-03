@@ -14,14 +14,17 @@ import java.util.Set;
 @Entity
 @Table(name="permissao")
 @JsonIgnoreProperties({"usuarios"})
-public class Permissao extends Generica {
+public class Permissao extends EntityGenerica {
 
     @Id
-    @TableGenerator(name="permissao_geracao",
-            table="tabela_sequencia_id",
-            pkColumnName="id",
-            valueColumnName="proximo_id")
-    @GeneratedValue(strategy= GenerationType.TABLE,generator="permissao_geracao")
+    @TableGenerator(
+            table = "sequences",
+            name = "id_permissao",
+            pkColumnName = "sequence_name",
+            valueColumnName = "sequence_next_hi_value",
+            pkColumnValue = "id_permissao",
+            allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator="id_permissao")
     @Column(name = "id")
     private Long id;
 

@@ -1,4 +1,7 @@
 package br.com.app.entity;
 
-public class Generica {
+public class Pessoa {
+
+
+
 }

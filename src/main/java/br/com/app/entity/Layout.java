@@ -7,14 +7,17 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="layout")
-public class Layout extends Generica{
+public class Layout extends EntityGenerica {
 
     @Id
-    @TableGenerator(name="layout_geracao",
-            table="tabela_sequencia_id",
-            pkColumnName="id",
-            valueColumnName="proximo_id")
-    @GeneratedValue(strategy= GenerationType.TABLE,generator="layout_geracao")
+    @TableGenerator(
+            table = "sequences",
+            name = "id_layout",
+            pkColumnName = "sequence_name",
+            valueColumnName = "sequence_next_hi_value",
+            pkColumnValue = "id_layout",
+            allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator="id_layout")
     @Column(name = "id")
     private Long id;
 
