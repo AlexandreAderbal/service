@@ -1,5 +1,8 @@
 package br.com.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -37,6 +40,7 @@ public class Estado extends EntityGenerica{
     private String sigla;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "estado")
+    @JsonBackReference
     private Set<Cidade> cidades = new HashSet<Cidade>();
 
     public Long getId() {
