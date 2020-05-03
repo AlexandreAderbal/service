@@ -8,5 +8,4 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/cidade")
-public class CidadeController extends GenericControllerImpl<Cidade, CidadeService> {
-}
+public class CidadeController extends GenericControllerImpl<Cidade, CidadeService> {}

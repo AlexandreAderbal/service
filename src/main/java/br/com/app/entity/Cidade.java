@@ -20,6 +20,10 @@ public class Cidade extends EntityGenerica{
     @Column(name = "id")
     private Long id;
 
+    @NotNull(message = "O código IBGE é obrigatório.")
+    @Column(name = "codigo_ibge")
+    private Long codigoIBGE;
+
     @NotNull(message = "O nome é obrigatório.")
     @Size(min = 5,max = 50 ,message = "O nome deve possuir entre 5 e 50 caracteres.")
     @Column(name = "nome")
@@ -34,6 +38,14 @@ public class Cidade extends EntityGenerica{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCodigoIBGE() {
+        return codigoIBGE;
+    }
+
+    public void setCodigoIBGE(Long codigoIBGE) {
+        this.codigoIBGE = codigoIBGE;
     }
 
     public String getNome() {

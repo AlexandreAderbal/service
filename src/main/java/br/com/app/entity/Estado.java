@@ -1,7 +1,5 @@
 package br.com.app.entity;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,9 +22,9 @@ public class Estado extends EntityGenerica{
     @Column(name = "id")
     private Long id;
 
-    @NotNull(message = "O código IBGE é obrigatório.")
-    @Column(name = "codigo_ibge")
-    private Long codigoIBGE;
+    @NotNull(message = "O código é obrigatório.")
+    @Column(name = "codigo")
+    private Long codigo;
 
     @NotNull(message = "O nome é obrigatório.")
     @Size(min = 5,max = 50 ,message = "O nome deve possuir entre 5 e 50 caracteres.")
@@ -35,8 +33,8 @@ public class Estado extends EntityGenerica{
 
     @NotNull(message = "A sigle é obrigatório.")
     @Size(min = 2,max = 2 ,message = "A sigle deve possuir 2 caracteres.")
-    @Column(name = "sigle")
-    private String sigle;
+    @Column(name = "sigla")
+    private String sigla;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "estado")
     private Set<Cidade> cidades = new HashSet<Cidade>();
@@ -49,12 +47,12 @@ public class Estado extends EntityGenerica{
         this.id = id;
     }
 
-    public Long getCodigoIBGE() {
-        return codigoIBGE;
+    public Long getCodigo() {
+        return codigo;
     }
 
-    public void setCodigoIBGE(Long codigoIBGE) {
-        this.codigoIBGE = codigoIBGE;
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
     }
 
     public String getNome() {
@@ -65,11 +63,19 @@ public class Estado extends EntityGenerica{
         this.nome = nome;
     }
 
-    public String getSigle() {
-        return sigle;
+    public String getSigla() {
+        return sigla;
     }
 
-    public void setSigle(String sigle) {
-        this.sigle = sigle;
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
+    }
+
+    public Set<Cidade> getCidades() {
+        return cidades;
+    }
+
+    public void setCidades(Set<Cidade> cidades) {
+        this.cidades = cidades;
     }
 }
