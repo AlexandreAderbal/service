@@ -26,14 +26,26 @@ public class PermissaoController extends GenericControllerImpl<Permissao, Permis
     @Autowired
     private PermissaoService permissaoService;
 
-    @GetMapping(value = "/find/all/lista/persmissao/{idUsuario}")
+    @GetMapping(value = "/lista/{idUsuario}")
     public ResponseEntity<List<ListaPermissao>> findAllListaPermissao(@PathVariable Long idUsuario) throws Exception {
         try{
-            return new ResponseEntity(permissaoService.findAllListaPermissao(idUsuario), HttpStatus.OK);
+            return new ResponseEntity(this.permissaoService.findAllListaPermissao(idUsuario), HttpStatus.OK);
         }catch (Exception e){
             logger.error(e.getMessage());
             throw new Exception(e);
         }
     }
+
+    @GetMapping(value = "/inicializar/persmissao")
+    public ResponseEntity<HttpStatus> inicializaPermissao() throws Exception {
+        try{
+            this.permissaoService.inicializaPermissao();
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            throw new Exception(e);
+        }
+    }
+
 
 }

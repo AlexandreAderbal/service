@@ -2,11 +2,14 @@ package br.com.app.controller;
 
 import br.com.app.exception.CustomException;
 import br.com.app.payload.LoginRequest;
+import br.com.app.payload.LoginResponse;
 import br.com.app.service.UsuarioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,10 +25,15 @@ public class AuthController {
     @Autowired
     UsuarioService usuarioService;
 
-    @PostMapping("/login")
-    public ResponseEntity<String> authenticateUser(@Valid @RequestBody LoginRequest loginRequestDTO) {
+    @RequestMapping(
+            value = "/login",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<LoginResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequestDTO) {
         try{
-            return new ResponseEntity<String>(usuarioService.autenticacao(loginRequestDTO),HttpStatus.OK);
+            return new ResponseEntity<LoginResponse>(usuarioService.autenticacao(loginRequestDTO),HttpStatus.OK);
         }catch (Exception e){
             logger.error(e.getMessage());
             throw new CustomException(e);

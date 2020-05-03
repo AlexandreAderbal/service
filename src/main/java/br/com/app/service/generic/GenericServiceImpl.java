@@ -1,5 +1,7 @@
 package br.com.app.service.generic;
 
+import br.com.app.entity.Permissao;
+import br.com.app.enums.PermissaoEnum;
 import br.com.app.exception.CustomException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

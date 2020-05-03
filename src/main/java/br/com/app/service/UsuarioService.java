@@ -4,6 +4,7 @@ import br.com.app.entity.Permissao;
 import br.com.app.entity.Usuario;
 import br.com.app.exception.CustomException;
 import br.com.app.payload.LoginRequest;
+import br.com.app.payload.LoginResponse;
 import br.com.app.repository.UsuarioRepository;
 import br.com.app.service.generic.GenericServiceImpl;
 import br.com.app.utils.AppUtil;
@@ -131,24 +132,28 @@ public class UsuarioService extends GenericServiceImpl<Usuario,UsuarioRepository
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public String autenticacao(LoginRequest loginRequestDTO){
+    public LoginResponse autenticacao(LoginRequest loginRequest){
 
-        Authentication authentication = null;
+        LoginResponse loginResponse = new LoginResponse();
 
         try{
 
-            authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(),
-                                                            loginRequestDTO.getSenha()));
+            Authentication authentication  = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
+                                                            loginRequest.getSenha()));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            loginResponse.setToken(jwtUtils.generateJwtToken(authentication));
+
+            loginResponse.setUsuario(this.findByEmail(loginRequest.getEmail()).orElse(new Usuario()));
 
         }catch (Exception e){
             logger.error("Erro na autenticação:");
             throw new CustomException(e);
         }
 
-        return jwtUtils.generateJwtToken(authentication);
+        return loginResponse;
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
