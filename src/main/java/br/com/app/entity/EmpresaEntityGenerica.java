@@ -1,5 +1,7 @@
 package br.com.app.entity;
 
+import br.com.app.enums.TipoDocumento;
+
 import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,24 +14,13 @@ public class EmpresaEntityGenerica extends EntityGenerica {
 
     @NotNull(message="O Tipo de documento deve ser informado.")
     @Enumerated(EnumType.STRING)
-    @Column(name="TP_DOC")
-    private TpDoc tpDoc;
-
-    public enum TpDoc{
-        CPF("CPF"),
-        CNPJ("CNPJ");
-
-        String tpDoc;
-
-        private TpDoc (String tpDoc){
-            this.tpDoc=tpDoc;
-        }
-    }
+    @Column(name="tipo_documento")
+    private TipoDocumento tipoDocumento;
 
     @NotNull(message="O número documento deve ser informado.")
-    @Size(min = 11 , message = "Quantidade de caracteres insuficiente do campo CPF/CNPJ .")
-    @Column(name="CGC")
-    private String cgc;
+    @Size(min = 11, max = 15 , message = "Quantidade de caracteres insuficiente do campo CPF/CNPJ .")
+    @Column(name="numero_documento")
+    private String numeroDocumento;
 
     @Size(max = 20 , message = "Inscrição Estadual muito grande.")
     @Column(name="IE")
@@ -43,20 +34,12 @@ public class EmpresaEntityGenerica extends EntityGenerica {
     @Column(name="FANTASIA", length=100)
     private String fantasia;
 
-    public TpDoc getTpDoc() {
-        return tpDoc;
+    public String getNumeroDocumento() {
+        return numeroDocumento;
     }
 
-    public void setTpDoc(TpDoc tpDoc) {
-        this.tpDoc = tpDoc;
-    }
-
-    public String getCgc() {
-        return cgc;
-    }
-
-    public void setCgc(String cgc) {
-        this.cgc = cgc;
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
     }
 
     public String getIe() {
@@ -81,5 +64,13 @@ public class EmpresaEntityGenerica extends EntityGenerica {
 
     public void setFantasia(String fantasia) {
         this.fantasia = fantasia;
+    }
+
+    public TipoDocumento getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(TipoDocumento tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
     }
 }
