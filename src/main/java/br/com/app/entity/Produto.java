@@ -21,19 +21,15 @@ public class Produto extends EntityGenerica {
     @Column(name="ID")
     protected Long id;
 
-    @NotNull(message="O codigo não pode ser null.")
-    @Length(max=10 ,message="O codigo não pode conter mais de 10 caracteres.")
     @Column(name="CODIGO")
     private String codigo;
 
+    @NotNull(message="O Nome não pode ser null.")
     @Length(max=100 ,message="O nome tem mais de 100 caracteres.")
     @Column(name="NOME")
     private String nome;
 
-    @Length(max=20 ,message="A embalagem tem mais de 20 caracteres.")
-    @Column(name="EMBALAGEM", length=20)
-    private String embalagem;
-
+    @NotNull(message="O codigo do fabrica não pode ser null.")
     @Length(max=20 ,message="O Codigo de fabrica tem mais de 20 caracteres.")
     @Column(name="CFABRICA", length=20)
     private String codigoFabrica;
@@ -87,14 +83,6 @@ public class Produto extends EntityGenerica {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getEmbalagem() {
-        return embalagem;
-    }
-
-    public void setEmbalagem(String embalagem) {
-        this.embalagem = embalagem;
     }
 
     public String getCodigoFabrica() {
