@@ -149,8 +149,8 @@ public class UsuarioService extends GenericServiceImpl<Usuario,UsuarioRepository
             loginResponse.setUsuario(this.findByEmail(loginRequest.getEmail()).orElse(new Usuario()));
 
         }catch (Exception e){
-            logger.error("Erro na autenticação:");
-            throw new CustomException(e);
+            logger.error("Erro na autenticação : " + e);
+            throw new CustomException("Usuário ou senha inválidos.");
         }
 
         return loginResponse;

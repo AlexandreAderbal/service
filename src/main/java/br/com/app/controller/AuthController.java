@@ -23,12 +23,7 @@ public class AuthController {
     @Autowired
     UsuarioService usuarioService;
 
-    @RequestMapping(
-            value = "/login",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE
-    )
+    @PostMapping(value = "/login")
     public ResponseEntity<LoginResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequestDTO) {
         try{
             return new ResponseEntity<LoginResponse>(usuarioService.autenticacao(loginRequestDTO),HttpStatus.OK);
