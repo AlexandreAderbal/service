@@ -21,13 +21,13 @@ public class UsuarioController extends GenericControllerImpl<Usuario, UsuarioSer
     @Autowired
     private UsuarioService usuarioService;
 
-    @RequestMapping(value = "/by/email", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/by/email")
     public ResponseEntity<Usuario> save(@RequestBody String email) throws Exception {
         try{
             return new ResponseEntity<Usuario>(this.usuarioService.findByEmail(email).orElse(new Usuario()),HttpStatus.OK);
         }catch (Exception e){
             logger.error(e.getMessage());
-            throw new Exception(e);
+            throw new CustomException(e);
         }
     }
 
@@ -38,7 +38,7 @@ public class UsuarioController extends GenericControllerImpl<Usuario, UsuarioSer
             return new ResponseEntity(HttpStatus.OK);
         }catch (Exception e){
             logger.error(e.getMessage());
-            throw new Exception(e);
+            throw new CustomException(e);
         }
     }
 
@@ -49,7 +49,18 @@ public class UsuarioController extends GenericControllerImpl<Usuario, UsuarioSer
             return new ResponseEntity(HttpStatus.OK);
         }catch (Exception e){
             logger.error(e.getMessage());
-            throw new Exception(e);
+            throw new CustomException(e);
+        }
+    }
+
+    @PostMapping(value = "/update/ativo")
+    public ResponseEntity<HttpStatus> updateAtivo(@RequestBody Long idUsuario) throws Exception {
+        try{
+            this.usuarioService.updateAtivo(idUsuario);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            throw new CustomException(e);
         }
     }
 

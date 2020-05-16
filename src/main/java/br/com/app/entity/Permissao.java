@@ -39,7 +39,7 @@ public class Permissao extends EntityGenerica {
     private TipoPermissaoEnum tipo;
 
     @NotBlank(message = "Descrição é obrigatótio.")
-    @Size(min = 3 ,max = 20 ,message = "Descrição deve possuir entre 3 e 20 caracteres.")
+    @Size(min = 3 ,max = 100 ,message = "Descrição deve possuir entre 3 e 20 caracteres.")
     @Column(name = "descricao")
     private String descricao;
 

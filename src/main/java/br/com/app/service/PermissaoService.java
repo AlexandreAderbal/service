@@ -37,7 +37,7 @@ public class PermissaoService extends GenericServiceImpl<Permissao, PermissaoRep
         try{
 
             ListaPermissao usuario = new ListaPermissao();
-            usuario.setTitulo("Tela de usuário.");
+            usuario.setTitulo("Rotina de usuário.");
             usuario.setPermissoes(permissaoRepository.findByTipo(TipoPermissaoEnum.USUARIO));
             permissoes.add(usuario);
 
@@ -45,6 +45,31 @@ public class PermissaoService extends GenericServiceImpl<Permissao, PermissaoRep
             permissao.setTitulo("Modal de permissão.");
             permissao.setPermissoes(permissaoRepository.findByTipo(TipoPermissaoEnum.PERMISSAO));
             permissoes.add(permissao);
+
+            ListaPermissao produto = new ListaPermissao();
+            produto.setTitulo("Rotina de produto.");
+            produto.setPermissoes(permissaoRepository.findByTipo(TipoPermissaoEnum.PRODUTO));
+            permissoes.add(produto);
+
+            ListaPermissao fornecedor = new ListaPermissao();
+            fornecedor.setTitulo("Rotina de fornecedor.");
+            fornecedor.setPermissoes(permissaoRepository.findByTipo(TipoPermissaoEnum.FORNECEDOR));
+            permissoes.add(fornecedor);
+
+            ListaPermissao cidade = new ListaPermissao();
+            cidade.setTitulo("Rotina de cidade.");
+            cidade.setPermissoes(permissaoRepository.findByTipo(TipoPermissaoEnum.CIDADE));
+            permissoes.add(cidade);
+
+            ListaPermissao estado = new ListaPermissao();
+            estado.setTitulo("Rotina de estado.");
+            estado.setPermissoes(permissaoRepository.findByTipo(TipoPermissaoEnum.ESTADO));
+            permissoes.add(estado);
+
+            ListaPermissao tipoEmbalagem = new ListaPermissao();
+            tipoEmbalagem.setTitulo("Rotina de tipo de embalagem.");
+            tipoEmbalagem.setPermissoes(permissaoRepository.findByTipo(TipoPermissaoEnum.TIPO_EMBALAGEM));
+            permissoes.add(tipoEmbalagem);
 
             Usuario u = usuarioService.findById(idUsuario).orElseThrow(
                     ()-> new Exception("O usuário com o codigo " + idUsuario + " não foi encontrado.")
@@ -83,15 +108,40 @@ public class PermissaoService extends GenericServiceImpl<Permissao, PermissaoRep
                     p.setDescricao(permissaoEnum.getValue());
 
                     switch (permissaoEnum) {
-                        case ROLE_USUARIO_GRAVAR:
-                        case ROLE_USUARIO_PESQUISAR:
+                        case ROLE_USUARIO_REGISTRAR:
+                        case ROLE_USUARIO_CONSULTAR:
                         case ROLE_USUARIO_DELETAR:
                             p.setTipo(TipoPermissaoEnum.USUARIO);
                             break;
-                        case ROLE_PERMISSAO_GRAVAR:
-                        case ROLE_PERMISSAO_PESQUISAR:
+                        case ROLE_PERMISSAO_REGISTRAR:
+                        case ROLE_PERMISSAO_CONSULTAR:
                         case ROLE_PREMISSAO_DELETAR:
                             p.setTipo(TipoPermissaoEnum.PERMISSAO);
+                            break;
+                        case ROLE_CIDADE_CONSULTAR:
+                        case ROLE_CIDADE_REGISTRAR:
+                        case ROLE_CIDADE_DELETAR:
+                            p.setTipo(TipoPermissaoEnum.CIDADE);
+                            break;
+                        case ROLE_ESTADO_CONSULTAR:
+                        case ROLE_ESTADO_REGISTRAR:
+                        case ROLE_ESTADO_DELETAR:
+                            p.setTipo(TipoPermissaoEnum.ESTADO);
+                            break;
+                        case ROLE_PRODUTO_CONSULTAR:
+                        case ROLE_PRODUTO_REGISTRAR:
+                        case ROLE_PRODUTO_DELETAR:
+                            p.setTipo(TipoPermissaoEnum.PRODUTO);
+                            break;
+                        case ROLE_TIPO_EMBALAGEM_CONSULTAR:
+                        case ROLE_TIPO_EMBALAGEM_REGISTRAR:
+                        case ROLE_TIPO_EMBALAGEM_DELETAR:
+                            p.setTipo(TipoPermissaoEnum.TIPO_EMBALAGEM);
+                            break;
+                        case ROLE_FORNECEDOR_CONSULTAR:
+                        case ROLE_FORNECEDOR_REGISTRAR:
+                        case ROLE_FORNECEDOR_DELETAR:
+                            p.setTipo(TipoPermissaoEnum.FORNECEDOR);
                             break;
                     }
 

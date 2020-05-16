@@ -1,5 +1,7 @@
 package br.com.app.entity;
 
+import br.com.app.enums.SexoEnum;
+import br.com.app.enums.TipoUsuarioEnum;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
@@ -35,12 +37,10 @@ public class Usuario implements Serializable {
     @Column(name="nome")
     private String nome;
 
-    @NotBlank(message = "CPF é obrigatório.")
-    @CPF(message = "CPF é inválido.")
     @Column(name="cpf")
     private String cpf;
 
-    @Column(name = "senha",updatable = false)
+    @Column(name = "senha")
     private String senha;
 
     @NotBlank(message = "E-mail é obrigatório.")
@@ -48,6 +48,20 @@ public class Usuario implements Serializable {
     @Email(message = "E-mail é inválido.")
     @Column(name = "email")
     private String email;
+
+    @Column(name = "ativo")
+    private Boolean ativo = Boolean.TRUE;
+
+    @Column(name = "sexo")
+    @Enumerated(EnumType.STRING)
+    private SexoEnum sexo;
+
+    @Column(name = "tipo_usuario")
+    @Enumerated(EnumType.STRING)
+    private TipoUsuarioEnum tipoUsuario;
+
+    @Column(name = "foto")
+    private Byte[] foto;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "id")
@@ -59,6 +73,10 @@ public class Usuario implements Serializable {
             joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_permissao", referencedColumnName = "id"))
     private Set<Permissao> permissoes = new HashSet<Permissao>();
+
+    @ManyToOne
+    @JoinColumn(name="id_departamento")
+    private Departamento departamento;
 
     public Long getId() {
         return id;
@@ -115,6 +133,47 @@ public class Usuario implements Serializable {
     public void setPermissoes(Set<Permissao> permissoes) {
         this.permissoes = permissoes;
     }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public SexoEnum getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(SexoEnum sexo) {
+        this.sexo = sexo;
+    }
+
+    public TipoUsuarioEnum getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuarioEnum tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+
+    public Byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Byte[] foto) {
+        this.foto = foto;
+    }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
 }
+
 
 

@@ -2,15 +2,33 @@ package br.com.app.enums;
 
 public enum PermissaoEnum {
 
-    //Tela de usuario
-    ROLE_USUARIO_PESQUISAR("Visualizar"),
-    ROLE_USUARIO_GRAVAR("Registrar"),
-    ROLE_USUARIO_DELETAR("Deletar"),
+    ROLE_USUARIO_CONSULTAR("Consultar usuário."),
+    ROLE_USUARIO_REGISTRAR("Registrar usuário."),
+    ROLE_USUARIO_DELETAR("Deletar usuário."),
 
-    //Tela de Permissões
-    ROLE_PERMISSAO_PESQUISAR("Visualizar"),
-    ROLE_PERMISSAO_GRAVAR("Registrar"),
-    ROLE_PREMISSAO_DELETAR("Deletar");
+    ROLE_PERMISSAO_CONSULTAR("Consultar permissão."),
+    ROLE_PERMISSAO_REGISTRAR("Registrar permissão."),
+    ROLE_PREMISSAO_DELETAR("Deletar permissão."),
+
+    ROLE_FORNECEDOR_CONSULTAR("Consultar fornecedor."),
+    ROLE_FORNECEDOR_REGISTRAR("Registrar fornecedor."),
+    ROLE_FORNECEDOR_DELETAR("Deletar fornecedor."),
+
+    ROLE_ESTADO_CONSULTAR("Consultar estador."),
+    ROLE_ESTADO_REGISTRAR("Registrar estador."),
+    ROLE_ESTADO_DELETAR("Deletar estador."),
+
+    ROLE_CIDADE_CONSULTAR("Consultar cidade."),
+    ROLE_CIDADE_REGISTRAR("Registrar cidade."),
+    ROLE_CIDADE_DELETAR("Deletar cidade."),
+
+    ROLE_TIPO_EMBALAGEM_CONSULTAR("Consultar tipo embalagem."),
+    ROLE_TIPO_EMBALAGEM_REGISTRAR("Registrar tipo embalagem."),
+    ROLE_TIPO_EMBALAGEM_DELETAR("Deletar tipo embalagem."),
+
+    ROLE_PRODUTO_CONSULTAR("Consultar produto."),
+    ROLE_PRODUTO_REGISTRAR("Registrar produto."),
+    ROLE_PRODUTO_DELETAR("Deletar produto.");
 
     private String value;
 

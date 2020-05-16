@@ -6,8 +6,10 @@ import br.com.app.entity.Usuario;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
 
@@ -34,16 +36,16 @@ public class UserDetails implements org.springframework.security.core.userdetail
     }
 
     public static UserDetails build(Usuario user) {
-        /*List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-                .collect(Collectors.toList());*/
+        List<GrantedAuthority> authorities = user.getPermissoes().stream()
+                .map(permissao -> new SimpleGrantedAuthority(permissao.getNome().name()))
+                .collect(Collectors.toList());
 
         return new UserDetails(
                 user.getId(),
                 user.getEmail(),
                 user.getEmail(),
                 user.getSenha(),
-                new ArrayList<GrantedAuthority>());
+                authorities);
     }
 
     @Override

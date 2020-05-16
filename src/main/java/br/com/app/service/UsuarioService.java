@@ -49,12 +49,18 @@ public class UsuarioService extends GenericServiceImpl<Usuario,UsuarioRepository
     @Override
     public void save(Usuario entity) {
         try {
-            boolean enviarEmailSenha = false;
 
-            if(entity.getId() == null) {
-                enviarEmailSenha = true;
+            boolean enviarEmailSenha = entity.getId()  == null ;
+
+            if(enviarEmailSenha) {
                 String senha = AppUtil.gerarSenha();
                 entity.setSenha(senha);
+            }else{
+                entity.setSenha(
+                        this.findById(entity.getId()).orElseThrow(
+                                () -> new CustomException("O usuário com o id: " + entity.getId() + " não foi encontrado!")
+                        ).getSenha()
+                );
             }
 
             if(!AppUtil.validateCPF(entity.getCpf())){
@@ -100,6 +106,10 @@ public class UsuarioService extends GenericServiceImpl<Usuario,UsuarioRepository
                 usuario.setEmail("alexandre.aderbal@outlook.com.br");
                 usuario.setSenha(encoder.encode(senha));
                 super.save(usuario);
+
+                for (Permissao p: permissaoService.findAll()){
+                    this.updateUsuarioPermissao(usuario.getId(),p.getId());
+                }
 
                 this.emailService.sendSenhaMail(usuario.getEmail(),senha);
             }
@@ -182,6 +192,24 @@ public class UsuarioService extends GenericServiceImpl<Usuario,UsuarioRepository
         }catch (Exception e){
             logger.error("Erro vincular permisão ao usuario:");
             throw new CustomException(e);
+        }
+    }
+
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    public void updateAtivo(Long idUsuario){
+        try {
+
+            Usuario usuario = this.findById(idUsuario).orElseThrow(
+                    () -> new CustomException("O usuário com o id: " + idUsuario + " não foi encontrado!")
+            );
+
+            usuario.setAtivo(!usuario.getAtivo());
+
+            this.save(usuario);
+
+        }catch (Exception e){
+            logger.error("Erro ao excluir o " + GenericServiceImpl.class + " :",e.getMessage());
+            throw new CustomException(e.getMessage());
         }
     }
 }

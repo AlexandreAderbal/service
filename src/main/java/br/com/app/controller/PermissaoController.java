@@ -32,20 +32,8 @@ public class PermissaoController extends GenericControllerImpl<Permissao, Permis
             return new ResponseEntity(this.permissaoService.findAllListaPermissao(idUsuario), HttpStatus.OK);
         }catch (Exception e){
             logger.error(e.getMessage());
-            throw new Exception(e);
+            throw new CustomException(e);
         }
     }
-
-    @GetMapping(value = "/inicializar/persmissao")
-    public ResponseEntity<HttpStatus> inicializaPermissao() throws Exception {
-        try{
-            this.permissaoService.inicializaPermissao();
-            return new ResponseEntity(HttpStatus.OK);
-        }catch (Exception e){
-            logger.error(e.getMessage());
-            throw new Exception(e);
-        }
-    }
-
 
 }
