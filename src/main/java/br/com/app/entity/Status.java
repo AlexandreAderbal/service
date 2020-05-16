@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "status")
 public class Status extends EntityGenerica{
-    
+
     @Id
     @TableGenerator(
             table = "sequences",
@@ -17,8 +17,8 @@ public class Status extends EntityGenerica{
             pkColumnValue = "id_status",
             allocationSize=1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator="id_status")
-    @Column(name="ID")
-    protected Long id;
+    @Column(name="id")
+    private Long id;
 
     @NotNull(message = "A descrição é obrigatória!")
     @Size(min = 5 ,max = 50 ,message = "A descrição deve ter entre 5 e 50 caracteres!")
