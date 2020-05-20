@@ -1,7 +1,5 @@
 package br.com.app.service.generic;
 
-import br.com.app.entity.Permissao;
-import br.com.app.enums.PermissaoEnum;
 import br.com.app.exception.CustomException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
@@ -26,7 +23,7 @@ public abstract class GenericServiceImpl<T,Repository extends JpaRepository<T,Lo
 
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public void save(@Validated T entity) {
+    public void save(T entity) {
         try {
             
             this.validate(entity);

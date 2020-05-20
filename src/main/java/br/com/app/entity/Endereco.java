@@ -26,19 +26,16 @@ public class Endereco extends EntityGenerica{
     private String email;
 
     @NotNull(message = "O ddd é obrigatório!")
-    @Size(max = 2 , message = "O telefone deve possuír no máximo 9 caracteres")
     @Column(name = "ddd")
-    private int ddd;
+    private Integer ddd;
 
     @NotNull(message = "O telefone é obrigatório")
-    @Size(max = 9 , message = "O telefone deve possuír no máximo 9 caracteres")
     @Column(name = "telefone")
-    private int telefone;
+    private Integer telefone;
 
     @NotNull(message = "O cep é obrigatório")
-    @Size(max = 7 , message = "O telefone deve possuír no máximo 7 caracteres")
     @Column(name = "cep")
-    private int cep;
+    private Integer cep;
 
     @Size(max = 250 , message = "A rua deve possuír no máximo 250 caracteres")
     @Column(name = "rua")
@@ -56,7 +53,7 @@ public class Endereco extends EntityGenerica{
     @Column(name = "logradouro")
     private String logradouro;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.DETACH)
     @JoinColumn(name="id_cidade")
     private Cidade cidade;
 
@@ -66,6 +63,78 @@ public class Endereco extends EntityGenerica{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getDdd() {
+        return ddd;
+    }
+
+    public void setDdd(Integer ddd) {
+        this.ddd = ddd;
+    }
+
+    public Integer getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(Integer telefone) {
+        this.telefone = telefone;
+    }
+
+    public Integer getCep() {
+        return cep;
+    }
+
+    public void setCep(Integer cep) {
+        this.cep = cep;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 }
 

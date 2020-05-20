@@ -4,55 +4,50 @@ import java.util.Random;
 
 public class AppUtil {
 
+    private static final int[] pesoCPF = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
+    private static final int[] pesoCNPJ = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+
+    private static int calcularDigito(String str, int[] peso) {
+        int soma = 0;
+        for (int indice=str.length()-1, digito; indice >= 0; indice-- ) {
+            digito = Integer.parseInt(str.substring(indice,indice+1));
+            soma += digito*peso[peso.length-str.length()+indice];
+        }
+        soma = 11 - soma % 11;
+        return soma > 9 ? 0 : soma;
+    }
+
+    private static String padLeft(String text, char character) {
+        return String.format("%11s", text).replace(' ', character);
+    }
+
+    public static boolean isValidCPF(String cpf) {
+        cpf = cpf.trim().replace(".", "").replace("-", "");
+        if ((cpf==null) || (cpf.length()!=11)) return false;
+
+        for (int j = 0; j < 10; j++)
+            if (padLeft(Integer.toString(j), Character.forDigit(j, 10)).equals(cpf))
+                return false;
+
+        Integer digito1 = calcularDigito(cpf.substring(0,9), pesoCPF);
+        Integer digito2 = calcularDigito(cpf.substring(0,9) + digito1, pesoCPF);
+        return cpf.equals(cpf.substring(0,9) + digito1.toString() + digito2.toString());
+    }
+
+    public static boolean isValidCNPJ(String cnpj) {
+        cnpj = cnpj.trim().replace(".", "").replace("-", "");
+        if ((cnpj==null)||(cnpj.length()!=14)) return false;
+
+        Integer digito1 = calcularDigito(cnpj.substring(0,12), pesoCNPJ);
+        Integer digito2 = calcularDigito(cnpj.substring(0,12) + digito1, pesoCNPJ);
+        return cnpj.equals(cnpj.substring(0,12) + digito1.toString() + digito2.toString());
+    }
+
     public static  boolean validateNotEmpty(String valor){
 
         if(valor == null) return  false;
         if(valor.length() > 0) return true;
         return  false;
-    }
-
-    static public boolean validateCPF (String strCpf ){
-
-        if(strCpf == null) return false;
-
-        int     d1, d2;
-        int     digito1, digito2, resto;
-        int     digitoCPF;
-        String  nDigResult;
-
-        d1 = d2 = 0;
-        digito1 = digito2 = resto = 0;
-
-        for (int nCount = 1; nCount < strCpf.length() -1; nCount++)
-        {
-            digitoCPF = Integer.valueOf (strCpf.substring(nCount -1, nCount)).intValue();
-
-            d1 = d1 + ( 11 - nCount ) * digitoCPF;//multiplique a ultima casa por 2 a seguinte por 3 a seguinte por 4 e assim por diante.
-
-            d2 = d2 + ( 12 - nCount ) * digitoCPF;//para o segundo digito repita o procedimento incluindo o primeiro digito calculado no passo anterior.
-        };
-
-        resto = (d1 % 11);//Primeiro resto da divisão por 11.
-
-        if (resto < 2)//Se o resultado for 0 ou 1 o digito é 0 caso contrário o digito é 11 menos o resultado anterior.
-            digito1 = 0;
-        else
-            digito1 = 11 - resto;
-
-        d2 += 2 * digito1;
-
-        resto = (d2 % 11);//Segundo resto da divisão por 11.
-
-        if (resto < 2)  //Se o resultado for 0 ou 1 o digito é 0 caso contrário o digito é 11 menos o resultado anterior.
-            digito2 = 0;
-        else
-            digito2 = 11 - resto;
-
-        String nDigVerific = strCpf.substring (strCpf.length()-2, strCpf.length()); //Digito verificador do CPF que está sendo validado.
-
-        nDigResult = String.valueOf(digito1) + String.valueOf(digito2);//Concatenando o primeiro resto com o segundo.
-
-        return nDigVerific.equals(nDigResult);//comparar o digito verificador do cpf com o primeiro resto + o segundo resto.
     }
 
     public static String gerarSenha(){

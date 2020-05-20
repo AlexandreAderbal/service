@@ -1,7 +1,6 @@
 package br.com.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,6 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "estado")
 public class Estado extends EntityGenerica{
+
 
     @Id
     @TableGenerator(

@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigInteger;
 
 @Entity
 @Table(name = "empresa")
@@ -27,8 +28,9 @@ public class Empresa extends EntityGenerica {
     @Column(name = "nome")
     private String nome;
 
+    @NotNull(message = "O cnpj é obrigatótio")
     @CNPJ(message = "Informe um cnpj válido.")
-    private Integer cnpj;
+    private String cnpj;
 
     @Size(max = 250, message = "A descrição deve possuír no máximo 250 caracteres")
     @Column(name = "descricao")
@@ -57,11 +59,11 @@ public class Empresa extends EntityGenerica {
         this.nome = nome;
     }
 
-    public Integer getCnpj() {
+    public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(Integer cnpj) {
+    public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
 

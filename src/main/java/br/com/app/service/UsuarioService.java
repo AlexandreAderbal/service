@@ -63,7 +63,7 @@ public class UsuarioService extends GenericServiceImpl<Usuario,UsuarioRepository
                 );
             }
 
-            if(!AppUtil.validateCPF(entity.getCpf())){
+            if(!AppUtil.isValidCPF(entity.getCpf())){
                 throw new CustomException("O CPF é inválido.");
             }
 
